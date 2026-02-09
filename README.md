@@ -1,4 +1,4 @@
-# Proyecto ML Pipeline - Gestión de Tecnología Digital (MLOps)
+# Proyecto ML Pipeline - MLOps
 
 Este proyecto implementa un pipeline básico de Machine Learning utilizando Git Flow.
 
@@ -10,4 +10,4 @@ Este proyecto implementa un pipeline básico de Machine Learning utilizando Git 
 4. Evaluación
 
 
-[Tu nombre]
+Ivan Cespedes
