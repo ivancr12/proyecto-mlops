@@ -54,3 +54,31 @@ if __name__ == "__main__":
     
     print("\n--- Generando matriz de confusión ---")
     plot_confusion_matrix(y_true, y_pred, "Test Model", "reports/test_confusion_matrix.png")
+
+def generate_evaluation_report(y_true, y_pred, model_name="Modelo", report_dir="reports"):
+    """Genera un reporte completo de evaluación"""
+    os.makedirs(report_dir, exist_ok=True)
+    
+    # Calcular métricas
+    metrics = calculate_metrics(y_true, y_pred, model_name)
+    
+    # Guardar métricas en CSV
+    metrics_df = pd.DataFrame([metrics])
+    csv_path = os.path.join(report_dir, f"{model_name.lower()}_metrics.csv")
+    metrics_df.to_csv(csv_path, index=False)
+    print(f"  • Métricas guardadas en: {csv_path}")
+    
+    # Generar matriz de confusión
+    img_path = os.path.join(report_dir, f"{model_name.lower()}_confusion_matrix.png")
+    plot_confusion_matrix(y_true, y_pred, model_name, img_path)
+    
+    return metrics_df
+
+# Actualizar prueba
+if __name__ == "__main__":
+    # ... código anterior ...
+    print("
+--- Generando reporte completo ---")
+    report = generate_evaluation_report(y_true, y_pred, "Modelo Completo")
+    print("
+Reporte generado exitosamente")
