@@ -26,15 +26,46 @@ def validate_dataset(data):
 
     return True, "Dataset válido"
 
+# Función adicional para mostrar estadísticas básicas
+def show_basic_stats(data):
+    """Muestra estadísticas básicas del dataset"""
+    if data is not None and not data.empty:
+        print("\nEstadísticas básicas del dataset:")
+        print(f"• Columnas: {list(data.columns)}")
+        print(f"• Forma: {data.shape[0]} filas x {data.shape[1]} columnas")
+        print(f"• Tipos de datos:")
+        for col in data.columns:
+            print(f"  - {col}: {data[col].dtype}")
+        print(f"• Valores nulos totales: {data.isnull().sum().sum()}")
+        
+        # Mostrar algunas filas de ejemplo
+        print(f"\nPrimeras 3 filas:")
+        print(data.head(3))
+    else:
+        print("Dataset vacío o no válido")
+
 if __name__ == "__main__":
+    # Crear datos de ejemplo más completos
     sample_data = pd.DataFrame({
-        'age': [25, 30, 35, 40, 45],
-        'income': [30000, 35000, 40000, 45000, 50000],
-        'department': ['IT', 'HR', 'IT', 'Sales', 'HR']
+        'age': [25, 30, None, 40, 45, 50, 35],
+        'income': [30000, 35000, 40000, 45000, None, 55000, 60000],
+        'department': ['IT', 'HR', 'IT', 'Sales', 'HR', 'IT', 'Sales'],
+        'experience_years': [2, 5, 8, 3, 10, 12, 6]
     })
-
+    
+    # Asegurar que existe el directorio data
+    import os
+    os.makedirs('data', exist_ok=True)
+    
+    # Guardar dataset de ejemplo
     sample_data.to_csv('data/sample_data.csv', index=False)
-
+    print("Dataset de ejemplo creado en 'data/sample_data.csv'")
+    
+    # Probar funciones
     data = load_dataset('data/sample_data.csv')
     is_valid, message = validate_dataset(data)
-    print(f"Validación: {message}")
+    print(f"\nValidación: {message}")
+    
+    # Mostrar estadísticas
+    if is_valid:
+        show_basic_stats(data)
