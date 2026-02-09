@@ -40,3 +40,27 @@ if __name__ == "__main__":
     data = load_dataset('data/sample_data.csv')
     is_valid, message = validate_dataset(data)
     print(f"Validación: {message}")
+
+def show_basic_stats(data):
+    """Muestra estadísticas básicas del dataset"""
+    if data is not None and not data.empty:
+        print("
+Estadísticas básicas:")
+        print(f"• Columnas: {list(data.columns)}")
+        print(f"• Forma: {data.shape[0]} filas x {data.shape[1]} columnas")
+        print(f"• Tipos de datos:")
+        for col in data.columns:
+            print(f"  - {col}: {data[col].dtype}")
+        print(f"• Valores nulos: {data.isnull().sum().sum()}")
+        print(f"
+Primeras 3 filas:")
+        print(data.head(3))
+    else:
+        print("Dataset vacío o no válido")
+
+# Actualizar prueba
+if __name__ == "__main__":
+    # ... código anterior ...
+    print("
+--- Mostrando estadísticas ---")
+    show_basic_stats(data)
