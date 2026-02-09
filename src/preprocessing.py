@@ -77,3 +77,21 @@ if __name__ == "__main__":
     print("\n2. Limpieza (eliminar nulos):")
     cleaned = clean_data(test_data, strategy='drop')
     print(cleaned)
+
+def split_features_target(data, target_column):
+    if target_column not in data.columns:
+        raise ValueError(f"Columna objetivo {target_column} no encontrada")
+    
+    X = data.drop(columns=[target_column])
+    y = data[target_column]
+    
+    print(f"Datos separados: X={X.shape}, y={y.shape}")
+    return X, y
+
+
+if __name__ == "__main__":
+    # ... código anterior ...
+    print("
+3. Separación características-objetivo:")
+    X, y = split_features_target(cleaned, target)
+    print(f"X shape: {X.shape}, y shape: {y.shape}")
