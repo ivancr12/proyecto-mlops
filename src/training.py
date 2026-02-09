@@ -28,6 +28,18 @@ def train_logistic_regression(X_train, y_train):
     
     return model
 
+def train_random_forest(X_train, y_train, n_estimators=100):
+    print("\n=== Entrenando Random Forest ===")
+    
+    model = RandomForestClassifier(
+        n_estimators=n_estimators,
+        random_state=42
+    )
+    
+    model.fit(X_train, y_train)
+    print(f"  • Random Forest entrenado con {n_estimators} árboles")
+    return model
+
 def save_model(model, model_name, model_dir='models'):
     os.makedirs(model_dir, exist_ok=True)
     filepath = os.path.join(model_dir, f"{model_name}.pkl")
@@ -42,26 +54,11 @@ if __name__ == "__main__":
     y = np.random.randint(0, 2, 100)
     
     X_train, X_test, y_train, y_test = split_train_test(X, y)
-    model = train_logistic_regression(X_train, y_train)
-    save_model(model, "test_model")
-
-def train_random_forest(X_train, y_train, n_estimators=100):
-    print("
-=== Entrenando Random Forest ===")
     
-    model = RandomForestClassifier(
-        n_estimators=n_estimators,
-        random_state=42
-    )
+    print("\n--- Entrenando Regresión Logística ---")
+    lr_model = train_logistic_regression(X_train, y_train)
+    save_model(lr_model, "logistic_regression_model")
     
-    model.fit(X_train, y_train)
-    print(f"  • Random Forest entrenado con {n_estimators} árboles")
-    return model
-
-
-if __name__ == "__main__":
-    # ... código anterior ...
-    print("
---- Entrenando Random Forest ---")
+    print("\n--- Entrenando Random Forest ---")
     rf_model = train_random_forest(X_train, y_train, n_estimators=50)
     save_model(rf_model, "random_forest_model")
